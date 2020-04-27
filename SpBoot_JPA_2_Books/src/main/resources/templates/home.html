@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+
+$(function(){
+	
+	$(document).on('click', '.trTag', function(e){
+		
+		 e.stopPropagation()
+		
+		let id = $(this).data('user-id')
+		
+		document.location.href="/book/update?id=" +id
+		
+	})
+	
+})
+
+</script>
+
+</head>
+<body>
+
+
+<div>
+<table>
+	<tr>
+		<th>제목</th>
+		<th>출판사</th>
+		<th>작가</th>
+		<th>연도</th>
+		<th>가격</th>
+		<th></th>
+	</tr>
+	
+	<tr th:each="book:${bookList}" th:data-user-id="${book.id}" class="trTag">
+		<td  th:text="${book.title}"></td>
+		<td  th:text="${book.comp}"></td>
+		<td  th:text="${book.auth}"></td>
+		<td th:text="${book.year}"></td>
+		<td th:text="${book.price}"></td>
+		<td th:data-user-id="${book.id}"><a th:href="@{/book/delete(id=${book.id})}">삭제</a></td>
+	</tr>
+</table>
+<button onclick="document.location.href='/book/insert'">등록</button>
+</div>
+
+</body>
+</html>
