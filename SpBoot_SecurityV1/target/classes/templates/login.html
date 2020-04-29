@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html>
+
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+<th:block th:include="include/head"/>
 </head>
+
+<script>
+$(function(){
+	
+	$(document).on('click',"button", function(){
+		let text = $(this).text()
+		if(text == '회원가입'){
+			document.location.href="/user/join"
+		}
+	})
+	
+})
+</script>
+
 <body>
 
 <h2>여기는 Login form</h2>
+
+<nav th:replace="include/layout :: nav"/>
+
+
 
 <!-- 
 	th:href
@@ -15,8 +33,7 @@
 	이 속성들은 rootPath(contextPath)를 자동으로 지정해주는 url을 생성
  -->
 <form th:action="@{login}" method="post">
-	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-	<div>
+		<div>
 		<label>USER NAME</label>
 		<input name="username">
 	</div>
@@ -28,9 +45,10 @@
 	
 	<div>
 		<button>LOG IN</button>
+		<button type="button">회원가입</button>
 	</div>
 
 </form>
-
+<nav th:replace="include/layout :: footer"/>
 </body>
 </html>

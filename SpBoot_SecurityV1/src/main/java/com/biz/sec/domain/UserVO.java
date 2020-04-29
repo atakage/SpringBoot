@@ -10,11 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -47,9 +47,10 @@ public class UserVO implements UserDetails{
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id", columnDefinition = "bigint")
 	private Long id;
 	
-	@Column(unique = true, length = 64)
+	@Column(name="username", columnDefinition = "varchar(64)", unique = true, length = 64)
 	private String username;
 	
 	// 설정하지 않으면 length = 255로 자동 설정
@@ -75,6 +76,7 @@ public class UserVO implements UserDetails{
 	 * 두 테이블을 join 했을 때 master table의 데이터를 select한 후 
 	 * 바로 slave table을 select 하지 않고 slave table의 데이터가 필요한 시점에 sELECT를 수행하도록 하는 지연 옵ㅁ션
 	 */
+	
 	@OneToMany(mappedBy = "userVO", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
 	private Set<UserRole> userRoles;
 	
